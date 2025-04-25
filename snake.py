@@ -35,7 +35,10 @@ while running:
         player_pos.x -= 300 * dt
     if keys[pygame.K_d]:
         player_pos.x += 300 * dt
-        
+    
+    player_pos.x = max(0, min(player_pos.x, 1280 - 20))
+    player_pos.y = max(0, min(player_pos.y, 720 - 20))
+    
 
     # flip() the display to put your work on screen
     pygame.display.flip()
