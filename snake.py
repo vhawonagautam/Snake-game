@@ -3,12 +3,14 @@ import pygame
 
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((1280, 750))
 clock = pygame.time.Clock()
 running = True
 dt = 0
-
+speed = 400
 player_pos = pygame.Vector2(10,10)
+# player_pos = pygame.Vector2((500 - 20) / 2, (400 - 20) / 2)
+direction = (speed,0)
 
 
 while running:
@@ -22,22 +24,27 @@ while running:
     screen.fill("purple")
     
     pygame.draw.rect(screen, "yellow",(player_pos.x ,player_pos.y ,20,20))
-    
-    player_pos.x += 300 * dt 
-    
+      
+    # player_pos +=  direction
     keys = pygame.key.get_pressed()
-    
-    if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+    if keys[pygame.K_UP]:
+        direction = (0, -300)
+    elif keys[pygame.K_DOWN]:
+        direction = (0, 300)
+    elif keys[pygame.K_LEFT]:
+        direction = (-300, 0)
+    elif keys[pygame.K_RIGHT]:
+        direction = (300, 0)
+        
+
+    # player_pos += direction *dt
+    player_pos.x += direction[0]*dt
+    player_pos.y += direction[1]*dt
+   
+   
     
     player_pos.x = max(0, min(player_pos.x, 1280 - 20))
-    player_pos.y = max(0, min(player_pos.y, 720 - 20))
+    player_pos.y = max(0, min(player_pos.y, 750 - 20))
     
 
     # flip() the display to put your work on screen
