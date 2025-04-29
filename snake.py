@@ -1,5 +1,6 @@
 # Example file showing a circle moving on screen
 import pygame 
+import random
 
 # pygame setup
 pygame.init()
@@ -9,9 +10,9 @@ running = True
 dt = 0
 speed = 400
 player_pos = pygame.Vector2(10,10)
-# player_pos = pygame.Vector2((500 - 20) / 2, (400 - 20) / 2)
 direction = (speed,0)
 
+food = (random.randint(0, 1280),random.randint(0, 750))
 
 while running:
     # poll for events
@@ -24,17 +25,17 @@ while running:
     screen.fill("purple")
     
     pygame.draw.rect(screen, "yellow",(player_pos.x ,player_pos.y ,20,20))
-      
+    
     # player_pos +=  direction
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
-        direction = (0, -300)
+        direction = (0, -speed)
     elif keys[pygame.K_DOWN]:
-        direction = (0, 300)
+        direction = (0, speed)
     elif keys[pygame.K_LEFT]:
-        direction = (-300, 0)
+        direction = (-speed, 0)
     elif keys[pygame.K_RIGHT]:
-        direction = (300, 0)
+        direction = (speed, 0)
         
 
     # player_pos += direction *dt
@@ -46,7 +47,9 @@ while running:
     player_pos.x = max(0, min(player_pos.x, 1280 - 20))
     player_pos.y = max(0, min(player_pos.y, 750 - 20))
     
-
+    pygame.draw.rect(screen, "brown",(*food,20,20))
+    
+    
     # flip() the display to put your work on screen
     pygame.display.flip()
 
