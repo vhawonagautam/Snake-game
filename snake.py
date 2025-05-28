@@ -47,11 +47,21 @@ while running:
     player_pos.x = max(0, min(player_pos.x, 1280 - 20))
     player_pos.y = max(0, min(player_pos.y, 750 - 20))
     
-    pygame.draw.rect(screen, "brown",(*food,20,20))
     
+    pygame.draw.rect(screen, "brown", (*food, 20, 20))
+    player_rect = pygame.Rect(player_pos.x, player_pos.y, 20, 20)
+    food_rect = pygame.Rect(food[0], food[1], 20, 20)
+
+
+    if player_rect.colliderect(food_rect):
+     print("Collision detected!")
     
-    # flip() the display to put your work on screen
     pygame.display.flip()
+    
+    
+    
+    # # flip() the display to put your work on screen
+    # pygame.display.flip()
 
     # limits FPS to 60
     # dt is delta time in seconds since last frame, used for framerate-
